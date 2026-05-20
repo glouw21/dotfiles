@@ -1,0 +1,72 @@
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc
+fi
+
+# User specific environment
+if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
+    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+fi
+export PATH
+
+# functions
+
+nmap_ping() {
+    nmap -sn "$@"
+}
+
+nmap_port() {
+    sudo nmap -sS "$@"
+}
+
+nmap_host() {
+    sudo nmap -O "$@"
+}
+
+# Aliases
+
+# nmap alias
+alias nmap-ping='nmap_ping'
+alias nmap-port='nmap_port'
+alias nmap-host='nmap_host'
+
+#git alias
+alias gs='git status'
+
+#fastfetch alias
+alias fetch='fastfetch'
+
+#misc alias
+alias clean='clear'
+
+#QoL Bash-Options
+shopt -s autocd
+shopt -s checkwinsize
+shopt -s cmdhist
+shopt -s histappend
+
+#History Tweaks
+HISTSIZE=10000
+HISTFILESIZE=20000
+export HISTCONTROL=ignoredups:erasedups
+
+# Uncomment the following line if you don't like systemctl's auto-paging feature:
+# export SYSTEMD_PAGER=
+
+# User specific aliases and functions
+if [ -d ~/.bashrc.d ]; then
+    for rc in ~/.bashrc.d/*; do
+        if [ -f "$rc" ]; then
+            . "$rc"
+        fi
+    done
+fi
+unset rc
+export CONTAINER_HOST=unix:///run/user/1000/podman/podman.sock
+
+# Start-Up Programs
+if [[ $- == *i* ]] && command -v fastfetch >/dev/null 2>&1; then
+    fastfetch
+fi
