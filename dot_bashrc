@@ -35,11 +35,10 @@ alias nmap-host='nmap_host'
 #git alias
 alias gs='git status'
 
-#fastfetch alias
-alias fetch='fastfetch'
-
 #misc alias
 alias clean='clear'
+alias dir='ls'
+alias fetch='fastfetch'
 
 #QoL Bash-Options
 shopt -s autocd
